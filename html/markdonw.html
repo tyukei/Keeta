@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Qeeta</title>
+    <title link="../home/home.html">Qeeta</title>
     <meta name="robots" content="INDEX,FOLLOW" />
     <link href="../style/css/style.css" rel="stylesheet" />
 
@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div id="header"><a href="#" id="title">Qeeta</a></div>
+    <div id="header"><a href="../home/home.html" id="title">Qeeta</a></div>
     <div id="out">
         <div id="head">
             <h1>Pythonを使ってMarkdownからHTMLに変換する方法</h1>
@@ -32,8 +32,9 @@
 
         <div id="main" class="entry-content">
             
-<h1> はじめに</h1>
-<p>プログラミングや技術的な文章を書く際、Markdownはそのシンプルさと柔軟性で非常に人気があります。しかし、ウェブサイトで使用するにはHTML形式が必要です。Pythonを使用してMarkdownをHTMLに簡単に変換する方法を紹介します。</p>
+<h1>＃ はじめに</h1>
+<p>プログラミングや技術的な文章を書く際、Markdownはそのシンプルさと柔軟性で非常に人気があります。しかし、ウェブサイトで使用するにはHTML形式が必要です。</p>
+<p>Pythonを使用してMarkdownをHTMLに簡単に変換する方法を紹介します。</p>
 <h2>必要なツール</h2>
 <p>このチュートリアルでは、Pythonの<code>markdown</code>ライブラリを使用します。まず、このライブラリをインストールする必要があります。</p>
 <pre class="prettyprint default">
@@ -92,33 +93,50 @@
     
   </code>
 </pre>
-</li>
-</ol>
-<h2>CSSとJavaScriptの統合</h2>
-<p>Markdownから生成されたHTMLにCSSやJavaScriptを統合するには、HTMLテンプレートにこれらのリソースを含めることができます。例えば：</p>
+<p>結果は以下のようになります。</p>
 <pre class="prettyprint default">
-  <div class="sorcefile">html</div>
+  <div class="sorcefile">console</div>
   <i class="fas fa-copy"></i>
   <code>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;&gt;
-    &lt;!-- その他の&lt;head&gt;要素 --&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id=&quot;content&quot;&gt;
-        &lt;!-- ここに変換されたHTMLを挿入 --&gt;
-    &lt;/div&gt;
-    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
-    &lt;!-- その他の&lt;body&gt;要素 --&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    &lt;h1&gt;見出し&lt;/h1&gt;
+    &lt;p&gt;これはサンプルテキストです。&lt;/p&gt;
+    &lt;ul&gt;
+    &lt;li&gt;リスト項目1&lt;/li&gt;
+    &lt;li&gt;リスト項目2&lt;/li&gt;
+    &lt;/ul&gt;
+
+
+    
+  </code>
+</pre>
+</li>
+</ol>
+<h2>完成したスクリプト</h2>
+<p>今回、MarkdownからHTMLへの変換を行うスクリプトを作成しました。
+このスクリプトは、MarkdownファイルからHTMLファイルを生成します。
+また、コードブロックをスタイル付きのHTMLに変換します。</p>
+<pre class="prettyprint default">
+  <div class="sorcefile">python</div>
+  <i class="fas fa-copy"></i>
+  <code>
+    import markdown
+    import sys
+    import re
+    import html
+
+    def extract_title(markdown_text):
+        # 最初の行がタイトルになる
+        title_md = markdown_text.split(&#x27;\n&#x27;)[0]
+        title_html = markdown.markdown(title_md)
+        # 最初の１行を削除
+        markdown_text = &#x27;\n&#x27;.join(markdown_text.split(&#x27;\n&#x27;)[1:])
+        return markdown_text, title_html
+
+
 
   </code>
 </pre>
 
-<p>この方法で、Pythonスクリプトを使用してMarkdownテキストをHTMLに変換し、必要に応じてCSSやJavaScriptを統合することができます。</p>
 <h2>まとめ</h2>
 <p>MarkdownからHTMLへの変換は、Pythonの<code>markdown</code>ライブラリを使用すると非常に簡単です。これにより、ブログ投稿、ドキュメント、あるいはその他のウェブコンテンツを効率的に生成することができます。</p>
         </div>

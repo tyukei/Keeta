@@ -2,7 +2,7 @@
   :root {
     --out-width: 95%;
     /*メインの幅*/
-    --side-menu-top: 201px;
+    --side-menu-top: 100px;
     /*サイドメニューのTopの位置*/
     --main-padding: 30px;
     /*メイン記事の内側の空白の幅*/
@@ -12,9 +12,9 @@
 
     /*　画面サイズが960pxからはここを読み込む　*/
     :root {
-        --out-width: 50%;
+        --out-width: 60%;
         /*メインの幅*/
-        --side-menu-top: 201px;
+        --side-menu-top: 200px;
         /*サイドメニューのTopの位置*/
         --main-padding: 30px;
         /*メイン記事の内側の空白の幅*/
@@ -32,6 +32,57 @@ body {
     line-height: 1.6;
     font-size: 100%;
 }
+/*ヘッダー*/
+header {
+    background-color: white;
+    color: black;
+    padding: 20px 15px 20px 15px; /* 上右下左のパディング */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+}
+
+.logo-container {
+    padding: 5px; /* ロゴの周囲の余白 */
+}
+
+.logo {
+    background-color: #55C500; /* ロゴの背景色 */
+    color: white; /* ロゴの文字色 */
+    font-size: 24px; /* ロゴのフォントサイズ */
+    font-weight: bold; /* フォントの太さ */
+    padding: 10px 20px; /* ロゴの内側の余白 */
+    border-radius: 5px; /* 角の丸み */
+    text-decoration: none; /* 下線を消す */
+    display: inline-block; /* インラインブロック要素として表示 */
+}
+
+nav ul {
+    list-style-type: none; /* リストマーカーをなくす */
+}
+
+nav ul li {
+    display: inline; /* リスト項目を横並びにする */
+    margin-right: 20px; /* 右のマージン */
+}
+
+nav ul li a {
+    color:black; /* リンクの文字色 */
+    text-decoration: none; /* 下線をなくす */
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
 
 /***** text styles*******************************************/
 
@@ -200,13 +251,6 @@ h5 {
     letter-spacing: 0.1em;
 }
 
-.copyright a:link,
-a:visited,
-a:hover {
-    color: #888888;
-    border-bottom: none;
-    text-decoration: none;
-}
 
 /* 表 */
 table {
@@ -400,17 +444,13 @@ i::after {
     bottom: -100px;
 }
 
-/*ヘッダー*/
-#header {
-    width: 100%;
-    background-color: #55c500;
-}
+
 
 #title {
     display: block;
     width: 100%;
     width: var(--out-width);
-    margin: 0 auto 0 auto;
+    margin: 0 0 0 20px;
     text-align: left;
     color: #fff;
     font-size: 35px;
@@ -421,3 +461,6 @@ i::after {
 .fa-copy {
     color: #777;
 }
+
+
+

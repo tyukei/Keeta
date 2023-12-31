@@ -2,7 +2,9 @@
 
 #＃ はじめに
 
-プログラミングや技術的な文章を書く際、Markdownはそのシンプルさと柔軟性で非常に人気があります。しかし、ウェブサイトで使用するにはHTML形式が必要です。Pythonを使用してMarkdownをHTMLに簡単に変換する方法を紹介します。
+プログラミングや技術的な文章を書く際、Markdownはそのシンプルさと柔軟性で非常に人気があります。しかし、ウェブサイトで使用するにはHTML形式が必要です。
+
+Pythonを使用してMarkdownをHTMLに簡単に変換する方法を紹介します。
 
 ## 必要なツール
 
@@ -49,28 +51,44 @@ Pythonスクリプトを作成して、MarkdownファイルをHTMLに変換す�
         file.write(html)
     ```
 
-## CSSとJavaScriptの統合
+    結果は以下のようになります。
 
-Markdownから生成されたHTMLにCSSやJavaScriptを統合するには、HTMLテンプレートにこれらのリソースを含めることができます。例えば：
+    ```console
+    <h1>見出し</h1>
+    <p>これはサンプルテキストです。</p>
+    <ul>
+    <li>リスト項目1</li>
+    <li>リスト項目2</li>
+    </ul>
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="style.css" rel="stylesheet">
-    <!-- その他の<head>要素 -->
-</head>
-<body>
-    <div id="content">
-        <!-- ここに変換されたHTMLを挿入 -->
-    </div>
-    <script src="script.js"></script>
-    <!-- その他の<body>要素 -->
-</body>
-</html>
+
+    ```
+    
+
+## 完成したスクリプト
+
+今回、MarkdownからHTMLへの変換を行うスクリプトを作成しました。
+このスクリプトは、MarkdownファイルからHTMLファイルを生成します。
+また、コードブロックをスタイル付きのHTMLに変換します。
+
+
+
+```python
+    import markdown
+    import sys
+    import re
+    import html
+
+    def extract_title(markdown_text):
+        # 最初の行がタイトルになる
+        title_md = markdown_text.split('\n')[0]
+        title_html = markdown.markdown(title_md)
+        # 最初の１行を削除
+        markdown_text = '\n'.join(markdown_text.split('\n')[1:])
+        return markdown_text, title_html
+
+
 ```
-
-この方法で、Pythonスクリプトを使用してMarkdownテキストをHTMLに変換し、必要に応じてCSSやJavaScriptを統合することができます。
 
 ## まとめ
 
