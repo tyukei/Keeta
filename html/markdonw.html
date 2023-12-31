@@ -32,7 +32,7 @@
 
         <div id="main" class="entry-content">
             
-<h1>＃ はじめに</h1>
+<h2>はじめに</h2>
 <p>プログラミングや技術的な文章を書く際、Markdownはそのシンプルさと柔軟性で非常に人気があります。しかし、ウェブサイトで使用するにはHTML形式が必要です。</p>
 <p>Pythonを使用してMarkdownをHTMLに簡単に変換する方法を紹介します。</p>
 <h2>必要なツール</h2>
@@ -119,18 +119,80 @@
   <div class="sorcefile">python</div>
   <i class="fas fa-copy"></i>
   <code>
-    import markdown
-    import sys
-    import re
-    import html
+import markdown
+import sys
+import re
+import html
 
-    def extract_title(markdown_text):
-        # 最初の行がタイトルになる
-        title_md = markdown_text.split(&#x27;\n&#x27;)[0]
-        title_html = markdown.markdown(title_md)
-        # 最初の１行を削除
-        markdown_text = &#x27;\n&#x27;.join(markdown_text.split(&#x27;\n&#x27;)[1:])
-        return markdown_text, title_html
+def extract_title(markdown_text):
+    # 最初の行がタイトルになる
+    title_md = markdown_text.split(&#x27;\n&#x27;)[0]
+    title_html = markdown.markdown(title_md)
+    # 最初の１行を削除
+    markdown_text = &#x27;\n&#x27;.join(markdown_text.split(&#x27;\n&#x27;)[1:])
+    return markdown_text, title_html
+
+def extract_code_blocks(markdown_text):
+    code_blocks = []
+    placeholder = &quot;&lt;!-- code --&gt;&quot;
+
+    def replacement(match):
+        language = match.group(1) if match.group(1) else &quot;No language specified&quot;
+        code = match.group(2)
+        escaped_code = html.escape(code)
+        code_blocks.append((language, escaped_code))
+        return placeholder
+
+    processed_markdown = re.sub(r&#x27;\`\`\`([a-zA-Z]*)\n(.*?)\`\`\`&#x27;, replacement, markdown_text, flags=re.DOTALL)
+    return processed_markdown, code_blocks
+
+def convert_markdown_to_html(file_name, markdown_folder, html_folder, template_file_name):
+    try:
+        with open(f&quot;{markdown_folder}{file_name}.md&quot;, &#x27;r&#x27;) as file:
+            markdown_text = file.read()
+    except FileNotFoundError:
+        print(f&quot;Error: Markdown file &#x27;{file_name}.md&#x27; not found in &#x27;{markdown_folder}&#x27;.&quot;)
+        return
+    title_md, title = extract_title(markdown_text)
+    code_md, code_blocks = extract_code_blocks(title_md)
+    html_content = markdown.markdown(code_md)
+
+    # Replace placeholders with styled code blocks
+    for language, code in code_blocks:
+        styled_block = f&#x27;&lt;pre class=&quot;prettyprint default&quot;&gt;\n  &lt;div class=&quot;sorcefile&quot;&gt;{language}&lt;/div&gt;\n  &lt;i class=&quot;fas fa-copy&quot;&gt;&lt;/i&gt;\n  &lt;code&gt;\n{code}\n  &lt;/code&gt;\n&lt;/pre&gt;&#x27;
+        html_content = html_content.replace(&quot;&lt;!-- code --&gt;&quot;, styled_block, 1)
+
+    try:
+        with open(template_file_name, &#x27;r&#x27;) as file:
+            html_template = file.read()
+    except FileNotFoundError:
+        print(f&quot;Error: Template file &#x27;{template_file_name}&#x27; not found.&quot;)
+        return
+    
+    title_html = html_template.replace(&quot;&lt;!-- insert title --&gt;&quot;, title)
+    final_html = title_html.replace(&quot;&lt;!-- insert html --&gt;&quot;, html_content)
+
+    try:
+        with open(f&quot;{html_folder}{file_name}.html&quot;, &#x27;w&#x27;) as file:
+            file.write(final_html)
+    except IOError as e:
+        print(f&quot;Error writing to file: {e}&quot;)
+
+def main():
+    markdown_folder = &#x27;markdown/&#x27;
+    html_folder = &#x27;html/&#x27;
+    template_file_name = &#x27;style/template.html&#x27;
+    file_name = &#x27;test&#x27;
+
+    args = sys.argv
+    if len(args) == 2:
+        file_name = args[1]
+
+    convert_markdown_to_html(file_name, markdown_folder, html_folder, template_file_name)
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+
 
 
 
