@@ -24,7 +24,7 @@
 /***** default styles*******************************************/
 
 body {
-    font-size: 13px; /* Standard browsers */
+    font-size: 16px; /* Standard browsers */
     _font-size: x-small; /* IE6 and below */
 }
 
@@ -97,7 +97,7 @@ body {
     margin: 0 auto;
     background-color: #efefef;
     padding: 0;
-    font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+    font-family: "Helvetica Neue";
 }
 
 p {

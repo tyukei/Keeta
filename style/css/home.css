@@ -2,7 +2,7 @@
 /* CSSのルールは選択子 { プロパティ: 値; } で構成されます。 */
 
 body {
-    background-color: #f5f5f5;
+    background-color: #747474;
     font-family: 'Arial', sans-serif; /* フォントの種類を指定 */
     margin: 0;
     padding: 0;
